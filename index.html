@@ -140,6 +140,8 @@
             z-index: 1000;
             min-width: 200px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            max-height: 100%;
+            overflow-y: auto;
         }
 
         .panel-title {
@@ -219,17 +221,15 @@
                 width: 200px;
             }
 
-            .floating-panel {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 1rem;
-                width: calc(100% - 2rem);
-            }
 
             .map-container {
                 margin: 0.5rem;
             }
+        }
+
+        /* Panel ausblenden, wenn Klasse hidden gesetzt ist */
+        .floating-panel.hidden {
+            display: none !important;
         }
 
         .marker-popup {
@@ -284,8 +284,8 @@
 
     <main class="map-container">
         <div id="map"></div>
-        
-        <div class="floating-panel">
+        <button id="togglePanelBtn" class="btn btn-secondary" style="position:absolute;top:20px;right:20px;z-index:1100;">Info</button>
+        <div class="floating-panel" id="floatingPanel">
             <div class="panel-title">Karteninfo</div>
             <div class="coordinate-display" id="coordinates">
                 Lat: 0.000000<br>
@@ -459,7 +459,7 @@
             const travelMode = document.querySelector('input[name="travelMode"]:checked')?.value || 'driving-car';
             const url = `https://api.openrouteservice.org/v2/isochrones/${travelMode}`;
             const avoidTolls = document.getElementById('avoidTolls')?.checked;
-            const body = {
+             const body = {
                 locations: [[lng, lat]],
                 range: [300, 600, 900, 1200, 1500, 1800, 2100, 2400],
                 units: 'm',
@@ -624,6 +624,21 @@
 
         // Karte initialisieren wenn die Seite geladen ist
         document.addEventListener('DOMContentLoaded', initMap);
+
+        // Panel ein-/ausblenden
+        document.addEventListener('DOMContentLoaded', function() {
+            const panel = document.getElementById('floatingPanel');
+            const btn = document.getElementById('togglePanelBtn');
+            let visible = true;
+            btn.addEventListener('click', function() {
+                visible = !visible;
+                if (visible) {
+                    panel.classList.remove('hidden');
+                } else {
+                    panel.classList.add('hidden');
+                }
+            });
+        });
     </script>
 </body>
 </html>
