@@ -453,7 +453,7 @@
             // HINWEIS: Eigener API-Key erforderlich!
             const apiKey = getApiKey();
             if (!apiKey) {
-                alert('Bitte zuerst einen OpenRouteService API-Key eingeben!');
+                alert('Bitte zuerst einen OpenRouteService API-Key eingeben!\n\nSo geht es:\n1. Gehe auf https://openrouteservice.org/sign-up/ und registriere dich kostenlos.\n2. Nach der Anmeldung findest du deinen API-Key im Dashboard unter "API Key".\n3. Kopiere den Key und füge ihn im Feld "OpenRouteService API-Key" im Karteninfo-Panel ein.\n4. Klicke auf "API-Key speichern".\n\nErst danach kann die Isochronen-Funktion genutzt werden. \n\nDer Key wird in deinem Browser gespeichert und automatisch verwendet.');
                 return;
             }
             const travelMode = document.querySelector('input[name="travelMode"]:checked')?.value || 'driving-car';
